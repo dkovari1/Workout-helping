@@ -12,17 +12,17 @@
     <form>
         <label>
             Date of workout
-            <input type="date">
+            <input type="date" id="excDate">
         </label>
         <label>
             Activity
-            <input type="text">
+            <input type="text" id="excType">
         </label>
         <label>
             Length of workout
-            <input type="number">
+            <input type="number" id="excLength">
         </label>
-        <button>Add to list</button>
+        <button id="buttonToAddToList">Add to list</button>
     </form>
     <table style="width: 675px; border: solid  black">
         <thead>
@@ -36,9 +36,27 @@
                 <th style="width: 220px;">Length (min)</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tableList">
         </tbody>
     </table>
 </body>
+
+<script>
+    const addButton = document.getElementById("buttonToAddToList");
+    const listInTable = document.getElementById("tableList")
+
+    addButton.addEventListener("click", (e) => {
+        e.preventDefault()
+        let rowEl = listInTable.insertRow(-1)
+        let cell1 = rowEl.insertCell(0)
+        let cell2 = rowEl.insertCell(1)
+        let cell3 = rowEl.insertCell(2)
+
+        cell1.innerHTML = document.getElementById("excDate").value
+        cell2.innerHTML = document.getElementById("excType").value
+        cell3.innerHTML = document.getElementById("excLength").value
+    })
+
+</script>
 
 </html>
