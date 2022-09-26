@@ -12,15 +12,15 @@
     <form>
         <label>
             Date of workout
-            <input type="date" id="excDate">
+            <input type="date" id="excerciseDate" required>
         </label>
         <label>
             Activity
-            <input type="text" id="excType">
+            <input type="text" id="excerciseType" required>
         </label>
         <label>
             Length of workout
-            <input type="number" id="excLength">
+            <input type="number" id="excerciseLength" required>
         </label>
         <button id="buttonToAddToList">Add to list</button>
     </form>
@@ -43,17 +43,35 @@
     <script>
         const addButton = document.getElementById("buttonToAddToList")
         const listInTable = document.getElementById("rowContainer")
+        let excerciseDateInput = document.getElementById("excerciseDate")
+        let excerciseTypeInput = document.getElementById("excerciseType")
+        let excerciseLengthInput = document.getElementById("excerciseLength")
 
         addButton.addEventListener("click", (e) => {
             e.preventDefault()
+            if (excerciseDateInput.value == "" || excerciseLengthInput.value == "" || excerciseTypeInput.value == "") return
             const rowEl = listInTable.insertRow(-1)
             const cell1 = rowEl.insertCell(0)
             const cell2 = rowEl.insertCell(1)
             const cell3 = rowEl.insertCell(2)
+            const cell4 = rowEl.insertCell(3)
+            rowEl.id = `row_${listInTable.rows.length}`
 
-            cell1.innerHTML = document.getElementById("excDate").value
-            cell2.innerHTML = document.getElementById("excType").value
-            cell3.innerHTML = document.getElementById("excLength").value
+            cell1.innerHTML = excerciseDateInput.value
+            cell2.innerHTML = excerciseTypeInput.value
+            cell3.innerHTML = excerciseLengthInput.value
+
+            let button = document.createElement("button")
+            button.textContent = "Delete"
+            button.addEventListener("click", () => {
+                const rowNumberToDelete = +rowEl.id.split("_")[1]
+                listInTable.deleteRow(rowNumberToDelete - 1)
+            })
+            cell4.appendChild(button)
+
+            excerciseDateInput.value = ""
+            excerciseLengthInput.value = ""
+            excerciseTypeInput.value = ""
         })
 
     </script>
