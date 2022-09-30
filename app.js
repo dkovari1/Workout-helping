@@ -7,8 +7,5 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-app.get("/almafa3", (res, req) => {
-    res.send("Hello")
-})
 
 app.listen(port)
