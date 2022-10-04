@@ -6,26 +6,19 @@ require('dotenv').config()
 
 const PORT = process.env.PORT || 3000
 
-const envvarLoopups = [
-    'DATABASE_HOST',
-    'DATABASE_PASSWORD',
-    'DATABASE_USERNAME',
-    'DATABASE_DATABASE',
+const envvarLookups = [
+    'DATABASE_URL'
 ]
 
-for (const neededEnvvar of envvarLoopups) {
+for (const neededEnvvar of envvarLookups) {
     if (!process.env[neededEnvvar]) {
         console.log(`${neededEnvvar} must be set`)
         process.exit(1)
     }
 }
 
-const connection = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_DATABASE
-})
+const connection = mysql.createConnection(process.env.DATABASE_URL)
+
 
 connection.connect((err) => {
     if (err !== null) {
