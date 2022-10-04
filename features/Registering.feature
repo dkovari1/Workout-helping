@@ -15,7 +15,7 @@ Feature: Registering, remove registering
     Scenario: Person want to  delete Profile
         When User click on "Registering" button and fill Username, Password and Password verify field
         And  click on "Delete" button
-        Then User will be removed from database and the datas will be deleted
+        Then User will be removed from database and the data will be deleted
 
     Scenario: Person want to  delete Profile, but with not good password
         When User click on "Registering" button and fill Username, Password and Password verify field
