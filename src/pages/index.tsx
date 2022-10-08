@@ -2,10 +2,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { trpc } from "../utils/trpc";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const Home: NextPage = () => {
   const hello = trpc.useQuery(["example.getAll"]);
-
+  const { data: session } = useSession()
   return (
     <>
       <Head>
@@ -18,6 +19,20 @@ const Home: NextPage = () => {
           <Link href={"/about"}>
             to about
           </Link>
+          {
+            session?.user &&
+            <>
+              Signed in as {session.user.email} <br />
+              <button onClick={() => signOut()}>Sign out</button>
+            </>
+          }
+          {
+            !session?.user &&
+            <>
+              Not signed in <br />
+              <button onClick={() => signIn()}>Sign in</button>
+            </>
+          }
         </div>
       </main>
     </>
